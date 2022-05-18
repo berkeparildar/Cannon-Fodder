@@ -5,9 +5,9 @@ public class Weapons extends Item {
     int damage;
     String weaponType;
 
-    public Weapons(DataStructures data, String role) {
-        super(data);
-        idSetter(data, role);
+    public Weapons(DataStructures data, String key) {
+        super(data, key);
+        idSetter(data, key);
         if (type.equals("WEAPON")) {
             damage = Integer.parseInt(data.getItemData().get(6).get(name));
         }

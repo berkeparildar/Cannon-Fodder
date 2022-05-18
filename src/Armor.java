@@ -16,7 +16,7 @@ public class Armor extends Item {
     }
 
     public Armor(DataStructures data) {
-        super(data);
+        super(data , "");
         damageReduction = Integer.parseInt(data.getItemData().get(7).get(name));
     }
 

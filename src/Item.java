@@ -17,8 +17,8 @@ public class Item {
         randomID = ID.get(random.nextInt(ID.size() - 1));
     }
 
-    public Item(DataStructures data) {
-        idSetter(data,"");
+    public Item(DataStructures data, String key) {
+        idSetter(data,key);
         if (randomID.contains("W")) {
             this.type = "WEAPON";
         } else {
