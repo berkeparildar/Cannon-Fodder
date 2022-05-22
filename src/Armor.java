@@ -6,18 +6,20 @@ public class Armor extends Item {
     @Override
     public void idSetter(DataStructures data, String Key) {
         ArrayList<String> WID = new ArrayList<>();
+        String key = "A"+Key;
         ID = data.getItemID();
         for (int i = 0; i < ID.size(); i++) {
-            if (ID.get(i).contains("A")) {
+            if (ID.get(i).contains(key)) {
                 WID.add(ID.get(i));
             }
         }
-        randomID = WID.get(random.nextInt(WID.size() - 1));
+        setRandomID(WID.get(random.nextInt(WID.size() - 1)));
     }
 
-    public Armor(DataStructures data) {
-        super(data , "");
-        damageReduction = Integer.parseInt(data.getItemData().get(7).get(name));
+    public Armor(DataStructures data, String key) {
+        super(data , key);
+        idSetter(data, key);
+        damageReduction = Integer.parseInt(data.getItemData().get(7).get(getName()));
     }
 
     @Override

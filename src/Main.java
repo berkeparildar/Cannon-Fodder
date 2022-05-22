@@ -3,11 +3,11 @@ public class Main {
         DataStructures data = new DataStructures();
         data.readCSV();
         System.out.println();
-            Weapons weapon = new Weapons(data,"H");
-            weapon.printItemInfo();
-            Armor armor = new Armor(data);
-            armor.printItemInfo();
-            Healer heal = new Healer(data);
-            heal.characterPrintInfo();       
+        Healer heal = new Healer(data);
+        heal.characterPrintInfo();
+        Fighter fight = new Fighter(data);
+        fight.characterPrintInfo();
+        Tank tank = new Tank(data);
+        tank.characterPrintInfo();
     }
 }

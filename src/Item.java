@@ -3,12 +3,12 @@ import java.util.ArrayList;
 
 public class Item {
     SecureRandom random = new SecureRandom();
-    String name;
-    String type;
-    int value;
-    int weight;
-    String rarity;
-    int level;
+    private String name;
+    private String type;
+    private int value;
+    private int weight;
+    private String rarity;
+    private int level;
     String randomID;
     ArrayList<String> ID = new ArrayList<>();
 
@@ -29,6 +29,26 @@ public class Item {
         this.weight = Integer.parseInt(data.getItemData().get(2).get(randomID));
         this.rarity = data.getItemData().get(3).get(randomID);
         this.level = Integer.parseInt(data.getItemData().get(4).get(randomID));
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+ 
+    public String getRarity() {
+        return rarity;
     }
 
     public void printItemInfo() {

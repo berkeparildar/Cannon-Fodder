@@ -8,8 +8,8 @@ public class Weapons extends Item {
     public Weapons(DataStructures data, String key) {
         super(data, key);
         idSetter(data, key);
-        if (type.equals("WEAPON")) {
-            damage = Integer.parseInt(data.getItemData().get(6).get(name));
+        if (getType().equals("WEAPON")) {
+            damage = Integer.parseInt(data.getItemData().get(6).get(getName()));
         }
         this.weaponType = data.getItemData().get(5).get(randomID);
     }
