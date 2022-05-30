@@ -44,14 +44,18 @@ public class Character {
         return strength;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int calculateIntelligence() {
         return random.nextInt(1, 5);
     }
-  
+
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
     }
-    
+
     public int getIntelligence() {
         return intelligence;
     }
@@ -59,7 +63,7 @@ public class Character {
     public int calculateVitality() {
         return random.nextInt(1, 5);
     }
-  
+
     public void setVitality(int vitality) {
         this.vitality = vitality;
     }
@@ -101,7 +105,8 @@ public class Character {
         inventory.add(armorArray);
         return inventory;
     }
-    public int calculateHP(){
+
+    public int calculateHP() {
         return (int) Math.round(7 * getVitality() + 2 * getStrength() + 1 * getIntelligence());
     }
 
