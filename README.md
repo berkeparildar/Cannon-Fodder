@@ -1,18 +1,22 @@
-## Getting Started
+## Introduction
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+“Cannon fodder” is a term used for soldiers who are expendable in war. There is also a game
+with the same name from 1993, published by Sensible Software. This game has no relation to
+its story or its gameplay.
+Cannon Fodder is made up of several components that interact with each other. There are no
+graphics required. You are welcome to add graphics if you choose to, however, you will be
+graded by your knowledge and application of object oriented programming skills, not by any
+artistic visualization of the game. Use your time wisely.
+Cannon Fodder is about destroying as many enemy soldiers as possible using three characters
+in a series of randomly generated levels. These three characters are Tank, Healer, and Fighter.
+The enemy soldiers are regular characters. The levels will start from 0. For each level n, there
+will be 2n enemies.
+The game is turn-based. First you give orders to your characters, once they are done, the enemy
+soldiers (the cannon fodder) take their turn.
 
-## Folder Structure
+## Components of the Game
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- Items
+- Characters\
+- Level
+- Gameplay
