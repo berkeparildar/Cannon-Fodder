@@ -6,12 +6,14 @@ public class Character {
     private String name;
     private String role;
     private int HP;
+    private int damage;
     private Weapons weapon;
     private Armor armor;
     private int strength;
     private int vitality;
     private int intelligence;
     private int money;
+    private Enemy target;
     ArrayList<String> characterNameArray = new ArrayList<>();
     ArrayList<ArrayList<Item>> inventory = new ArrayList<>();
     ArrayList<Item> weaponsArray = new ArrayList<>();
@@ -30,6 +32,32 @@ public class Character {
         this.intelligence = calculateIntelligence();
         this.money = setMoney();
         this.inventory = getInventory();
+        this.damage = getDamage();
+        this.target = getTarget();
+    }
+
+    public void attack() {
+
+    }
+
+    public Enemy getTarget() {
+        return target;
+    }
+
+    public void setTarget(Enemy target) {
+        this.target = target;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int calculateDamage() {
+        return 0;
     }
 
     public int calculateStrength() {
@@ -112,5 +140,9 @@ public class Character {
 
     public void characterPrintInfo() {
         System.out.println("Name: " + name + "\nClass: " + role + "\nMoney: " + money);
+    }
+
+    public String getRole() {
+        return role;
     }
 }

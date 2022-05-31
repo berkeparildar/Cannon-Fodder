@@ -7,11 +7,11 @@ public class Healer extends Character {
         super(data);
         setIntelligence(calculateIntelligence());
         setStrength(calculateStrength());
-        ;
         setVitality(calculateVitality());
         setHP(calculateHP());
         setWeapon(new Weapons(data, "H"));
         setArmor(new Armor(data, "M"));
+        setDamage(calculateDamage());
     }
 
     public Ability getAbility() {
@@ -57,4 +57,15 @@ public class Healer extends Character {
                 + getWeapon().getName() + "\nArmor: " + getArmor().getName());
     }
 
+    @Override
+    public int calculateDamage() {
+        return getWeapon().getDamage() + getIntelligence();
+    }
+
+    @Override
+    public void attack() {
+        System.out.println(getName() + " is attacking " + getTarget().getName() + "...");
+        getTarget().setHealthPoint(getTarget().getHealthPoint() - getDamage());
+        System.out.println(getName() + " damaged " + getTarget().getName() + " for " + getDamage() + " damage.");
+    }
 }

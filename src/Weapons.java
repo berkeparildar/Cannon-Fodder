@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class Weapons extends Item {
     int damage;
     String weaponType;
@@ -14,16 +13,21 @@ public class Weapons extends Item {
         this.weaponType = data.getItemData().get(5).get(randomID);
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     @Override
     public void printItemInfo() {
         super.printItemInfo();
         System.out.println("Damage: " + damage);
         System.out.println("Weapon type: " + weaponType);
     }
+
     @Override
     public void idSetter(DataStructures data, String code) {
         ArrayList<String> WID = new ArrayList<>();
-        String key = "W"+code;
+        String key = "W" + code;
         ID = data.getItemID();
         for (int i = 0; i < ID.size(); i++) {
             if (ID.get(i).contains(key)) {

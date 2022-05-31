@@ -18,11 +18,15 @@ public class Enemy {
     private String nameSetter() {
         SecureRandom random = new SecureRandom();
         List<String> adjectives = Arrays.asList("Small", "Crazy", "Warrior", "Enraged", "Big", "Scary");
-        return adjectives.get(random.nextInt(0, 5)) + "Goblin";
+        return adjectives.get(random.nextInt(0, 5)) + " Goblin";
     }
 
     public void setTarget(Character target) {
         this.target = target;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
     }
 
     public Character getTarget() {
@@ -44,7 +48,5 @@ public class Enemy {
     public void attack() {
         getTarget().setHP(getTarget().getHP() - getDamage());
         System.out.println(getName() + " attacked " + getTarget().getName() + " for " + getDamage() + " damage.");
-        System.out.println();
     }
-
 }
