@@ -45,8 +45,11 @@ public class Enemy {
         return damage;
     }
 
-    public void attack() {
-        getTarget().setHP(getTarget().getHP() - getDamage());
-        System.out.println(getName() + " attacked " + getTarget().getName() + " for " + getDamage() + " damage.");
+    public void attack() throws InterruptedException {
+        int y = getTarget().getHP();
+        int x = (int) Math.round(getTarget().getHP() - (getDamage() - getTarget().getArmor().getDamageReduction() * 0.1));
+        getTarget().setHP(x);
+        int z = y - x;
+        System.out.println(getName() + " attacked " + getTarget().getName() + " for " + z + " damage.");
     }
 }

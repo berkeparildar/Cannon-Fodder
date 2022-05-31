@@ -22,6 +22,11 @@ public class Armor extends Item {
         damageReduction = Integer.parseInt(data.getItemData().get(7).get(getName()));
     }
 
+    
+    public int getDamageReduction() {
+        return damageReduction;
+    }
+
     @Override
     public void printItemInfo() {
         super.printItemInfo();

@@ -15,9 +15,7 @@ public class Character {
     private int money;
     private Enemy target;
     ArrayList<String> characterNameArray = new ArrayList<>();
-    ArrayList<ArrayList<Item>> inventory = new ArrayList<>();
-    ArrayList<Item> weaponsArray = new ArrayList<>();
-    ArrayList<Item> armorArray = new ArrayList<>();
+    ArrayList<Item> inventory = new ArrayList<>();
 
     public String nameSetter(DataStructures data) {
         characterNameArray = data.getCharacterName();
@@ -36,7 +34,7 @@ public class Character {
         this.target = getTarget();
     }
 
-    public void attack() {
+    public void attack() throws InterruptedException {
 
     }
 
@@ -128,9 +126,9 @@ public class Character {
         this.armor = armor;
     }
 
-    public ArrayList<ArrayList<Item>> getInventory() {
-        inventory.add(weaponsArray);
-        inventory.add(armorArray);
+    public ArrayList<Item> getInventory() {
+        inventory.add(getWeapon());
+        inventory.add(getArmor());
         return inventory;
     }
 

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Healer extends Character {
     Ability ability;
@@ -63,9 +64,10 @@ public class Healer extends Character {
     }
 
     @Override
-    public void attack() {
+    public void attack() throws InterruptedException {
         System.out.println(getName() + " is attacking " + getTarget().getName() + "...");
         getTarget().setHealthPoint(getTarget().getHealthPoint() - getDamage());
+        TimeUnit.SECONDS.sleep(1);
         System.out.println(getName() + " damaged " + getTarget().getName() + " for " + getDamage() + " damage.");
     }
 }

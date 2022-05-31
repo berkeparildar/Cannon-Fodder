@@ -1,6 +1,7 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     static SecureRandom random = new SecureRandom();
@@ -8,9 +9,10 @@ public class Main {
     static ArrayList<Enemy> currentEnemies = new ArrayList<>();
     static int level = 1;
     static boolean game = true;
+    static Scanner sc = new Scanner(System.in);
+
 
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Hello, World!");
         DataStructures data = new DataStructures();
         data.readCSV();
@@ -22,6 +24,7 @@ public class Main {
             sc.next();
             level++;
         }
+        sc.close();
     }
 
     static void initializeChars(DataStructures data) {
@@ -31,6 +34,7 @@ public class Main {
         currentPlayers.add(tank);
         currentPlayers.add(heal);
         currentPlayers.add(fighter);
+
     }
 
     static void initializeEnemies() {
@@ -40,7 +44,7 @@ public class Main {
         }
     }
 
-    static void battle() {
+    static void battle() throws InterruptedException {
         int temp;
         int enemyTemp = 0;
         boolean fighting = true;
@@ -59,15 +63,24 @@ public class Main {
             while (targeted) {
                 for (int i = 0; i < currentPlayers.size(); i++) {
                     System.out.println(
-                            "It is " + currentPlayers.get(i).getName() + "'s turn of role "
-                                    + currentPlayers.get(i).getRole());
+                            "It is " + currentPlayers.get(i).getRole() + " " + currentPlayers.get(i).getName()
+                                    + "'s turn.");
+                                    System.out.println("Here are your player options");
+                                    System.out.println("Enter 1 to basic attack enemy");
+                                    System.out.println("Enter 2 to use special ability");
+                                    System.out.println("Enter 3 to display inventory");
+                                    System.out.println("Enter 4 to display character information and stats");
+                                    int answer = sc.nextInt();                                    
+                    TimeUnit.SECONDS.sleep(1);
                     currentPlayers.get(i).setTarget(currentEnemies.get(temp));
                     currentPlayers.get(i).attack();
                     if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
                         currentPlayers.get(i).getTarget().setHealthPoint(0);
                     }
+                    TimeUnit.SECONDS.sleep(1);
                     System.out.println(
                             "Current health of the enemy is " + currentPlayers.get(i).getTarget().getHealthPoint());
+                    TimeUnit.SECONDS.sleep(1);
                     if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
                         break;
                     }
@@ -88,19 +101,23 @@ public class Main {
                         }
                     }
                     System.out.println("It is " + currentEnemies.get(i).getName() + "'s turn ");
+                    TimeUnit.SECONDS.sleep(1);
                     currentEnemies.get(i).setTarget(currentPlayers.get(enemyIndex));
                     currentEnemies.get(i).attack();
                     if (currentEnemies.get(i).getTarget().getHP() <= 0) {
                         currentEnemies.get(i).getTarget().setHP(0);
                     }
+                    TimeUnit.SECONDS.sleep(1);
                     System.out.println("Current health of the " + currentEnemies.get(i).getTarget().getName() + " is "
                             + currentEnemies.get(i).getTarget().getHP());
+                    TimeUnit.SECONDS.sleep(1);
                     if (currentEnemies.get(i).getTarget().getHP() <= 0) {
                         break;
                     }
                 }
 
                 if (currentPlayers.get(enemyTemp).getHP() <= 0) {
+                    TimeUnit.SECONDS.sleep(1);
                     System.out.println(currentPlayers.get(enemyTemp).getName() + " is dead");
                     currentPlayers.remove(enemyTemp);
                     numberOfPlayers = currentPlayers.size();
@@ -111,10 +128,12 @@ public class Main {
 
             if (numberOfEnemies == 0) {
                 fighting = false;
+                TimeUnit.SECONDS.sleep(1);
                 System.out.println("All enemies are dead..");
                 System.out.println("LEVEL CLEARED");
             } else if (numberOfPlayers == 0) {
                 fighting = false;
+                TimeUnit.SECONDS.sleep(1);
                 System.out.println("All players are dead...");
                 System.out.println("GAME OVER");
                 game = false;
