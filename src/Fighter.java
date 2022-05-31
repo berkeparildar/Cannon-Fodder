@@ -5,7 +5,6 @@ public class Fighter extends Character {
         super(data);
         setIntelligence(calculateIntelligence());
         setStrength(calculateStrength());
-        ;
         setVitality(calculateVitality());
         setHP(calculateHP());
         setWeapon(new Weapons(data, "F"));

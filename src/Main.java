@@ -1,5 +1,6 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     static SecureRandom random = new SecureRandom();
@@ -9,6 +10,7 @@ public class Main {
     static boolean game = true;
 
     public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Hello, World!");
         DataStructures data = new DataStructures();
         data.readCSV();
@@ -16,17 +18,16 @@ public class Main {
         while (game) {
             initializeEnemies();
             battle();
+            System.out.println("Enter 'continue' to go to next level");
+            sc.next();
             level++;
         }
     }
 
     static void initializeChars(DataStructures data) {
         Healer heal = new Healer(data);
-        // heal.characterPrintInfo();
         Tank tank = new Tank(data);
-        // tank.characterPrintInfo();
         Fighter fighter = new Fighter(data);
-        // fighter.characterPrintInfo();
         currentPlayers.add(tank);
         currentPlayers.add(heal);
         currentPlayers.add(fighter);
