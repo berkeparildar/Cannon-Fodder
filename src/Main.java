@@ -83,6 +83,23 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("Special Ability");
+                                if(currentPlayers.get(i).getRole().equals("Healer")){
+                                    System.out.println("Please select an ally to heal");
+                                    for (int j = 0; j < currentPlayers.size(); j++) {
+                                        System.out.println("Enter " + j + " to heal " + currentPlayers.get(j).getName());
+                                    }
+                                    int caseTwoChoice = sc.nextInt();
+                                    if(caseTwoChoice==0){
+                                        currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(0));
+                                    }
+                                    else if(caseTwoChoice==1){
+                                        currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(1));
+                                    }
+                                    else if(caseTwoChoice==2){
+                                        currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(2));
+                                    }
+                                }
+                                currentPlayers.get(i).getAbility().cast();
                                 menu = false;
                                 break;
                             case 3:
@@ -132,6 +149,9 @@ public class Main {
                             enemyTemp = j;
                         }
                     }
+                    if(currentEnemies.get(i).getIsStunned()){
+                        continue;
+                    }
                     System.out.println("It is " + currentEnemies.get(i).getName() + "'s turn ");
                     TimeUnit.SECONDS.sleep(1);
                     currentEnemies.get(i).setTarget(currentPlayers.get(enemyIndex));
@@ -142,6 +162,7 @@ public class Main {
                     TimeUnit.SECONDS.sleep(1);
                     System.out.println("Current health of the " + currentEnemies.get(i).getTarget().getName() + " is "
                             + currentEnemies.get(i).getTarget().getHP());
+                    currentEnemies.get(i).setStunned(false);
                     TimeUnit.SECONDS.sleep(1);
                     if (currentEnemies.get(i).getTarget().getHP() <= 0) {
                         break;

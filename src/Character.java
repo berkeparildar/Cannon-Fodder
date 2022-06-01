@@ -13,7 +13,9 @@ public class Character {
     private int vitality;
     private int intelligence;
     private int money;
+    private int maxHP;
     private Enemy target;
+    private Ability ability;
     ArrayList<String> characterNameArray = new ArrayList<>();
     private ArrayList<Item> inventory = new ArrayList<>();
 
@@ -32,11 +34,11 @@ public class Character {
         this.inventory = getInventory();
         this.damage = getDamage();
         this.target = getTarget();
+        this.ability = new Ability(this);
     }
+    
 
-    public void attack() throws InterruptedException {
-
-    }
+    public void attack() throws InterruptedException{}
 
     public Enemy getTarget() {
         return target;
@@ -131,7 +133,18 @@ public class Character {
     }
 
     public int calculateHP() {
-        return (int) Math.round(7 * getVitality() + 2 * getStrength() + 1 * getIntelligence());
+        int a = (int) Math.round(7 * getVitality() + 2 * getStrength() + 1 * getIntelligence());
+        this.maxHP = a;
+        return a;
+    }
+
+    public Ability getAbility() {
+        ability.setTarget(getTarget());
+        return ability;
+    }
+
+    public int getMaxHP(){
+        return maxHP;
     }
 
     public void characterPrintInfo() {

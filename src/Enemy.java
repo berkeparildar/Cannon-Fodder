@@ -7,6 +7,7 @@ public class Enemy {
     private int healthPoint;
     private int damage;
     private Character target;
+    private boolean isStunned = false;
 
     public Enemy() {
         this.name = nameSetter();
@@ -31,6 +32,14 @@ public class Enemy {
 
     public Character getTarget() {
         return target;
+    }
+
+    public boolean getIsStunned(){
+        return isStunned;
+    }
+
+    public void setStunned(boolean isStunned) {
+        this.isStunned = isStunned;
     }
 
     public String getName() {

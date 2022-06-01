@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Healer extends Character {
-    Ability ability;
-
     public Healer(DataStructures data) {
         super(data);
         setIntelligence(calculateIntelligence());
@@ -15,14 +13,6 @@ public class Healer extends Character {
         setDamage(calculateDamage());
         getInventory().add(getWeapon());
         getInventory().add(getArmor());
-    }
-
-    public Ability getAbility() {
-        return ability;
-    }
-
-    public void setAbility(Ability ability) {
-        this.ability = ability;
     }
 
     @Override
