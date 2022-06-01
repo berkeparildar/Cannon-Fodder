@@ -11,6 +11,8 @@ public class Fighter extends Character {
         setWeapon(new Weapons(data, "F"));
         setArmor(new Armor(data, "F"));
         setDamage(calculateDamage());
+        getInventory().add(getWeapon());
+        getInventory().add(getArmor());
     }
 
     @Override
@@ -46,6 +48,8 @@ public class Fighter extends Character {
         System.out.println("Intelligence: " + getIntelligence() + "\nStrength: " + getStrength() + "\nVitality: "
                 + getVitality() + "\nHP: " + getHP() + "\nWeapon: " + getWeapon().weaponType + " "
                 + getWeapon().getName() + "\nArmor: " + getArmor().getName());
+                System.out.println("=========================================================");
+
     }
 
     @Override
@@ -60,4 +64,5 @@ public class Fighter extends Character {
         TimeUnit.SECONDS.sleep(1);
         System.out.println(getName() + " damaged " + getTarget().getName() + " for " + getDamage() + " damage.");
     }
+
 }

@@ -12,6 +12,8 @@ public class Tank extends Character {
         setWeapon(new Weapons(data, "T"));
         setArmor(new Armor(data, "T"));
         setDamage(calculateDamage());
+        getInventory().add(getWeapon());
+        getInventory().add(getArmor());
     }
 
     @Override
@@ -47,6 +49,7 @@ public class Tank extends Character {
         System.out.println("Intelligence: " + getIntelligence() + "\nStrength: " + getStrength() + "\nVitality: "
                 + getVitality() + "\nHP: " + getHP() + "\nWeapon: " + getWeapon().weaponType + " "
                 + getWeapon().getName() + "\nArmor: " + getArmor().getName());
+                System.out.println("=========================================================");
     }
 
     @Override

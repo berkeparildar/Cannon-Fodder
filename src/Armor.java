@@ -31,5 +31,6 @@ public class Armor extends Item {
     public void printItemInfo() {
         super.printItemInfo();
         System.out.println("Damage reduction: " + this.damageReduction);
+        System.out.println("----------------------------");
     }
 }

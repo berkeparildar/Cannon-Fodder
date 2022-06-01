@@ -15,7 +15,7 @@ public class Character {
     private int money;
     private Enemy target;
     ArrayList<String> characterNameArray = new ArrayList<>();
-    ArrayList<Item> inventory = new ArrayList<>();
+    private ArrayList<Item> inventory = new ArrayList<>();
 
     public String nameSetter(DataStructures data) {
         characterNameArray = data.getCharacterName();
@@ -127,8 +127,6 @@ public class Character {
     }
 
     public ArrayList<Item> getInventory() {
-        inventory.add(getWeapon());
-        inventory.add(getArmor());
         return inventory;
     }
 
@@ -137,6 +135,7 @@ public class Character {
     }
 
     public void characterPrintInfo() {
+        System.out.println("=========================================================");
         System.out.println("Name: " + name + "\nClass: " + role + "\nMoney: " + money);
     }
 

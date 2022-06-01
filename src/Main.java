@@ -11,7 +11,6 @@ public class Main {
     static boolean game = true;
     static Scanner sc = new Scanner(System.in);
 
-
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         DataStructures data = new DataStructures();
@@ -65,19 +64,52 @@ public class Main {
                     System.out.println(
                             "It is " + currentPlayers.get(i).getRole() + " " + currentPlayers.get(i).getName()
                                     + "'s turn.");
-                                    System.out.println("Here are your player options");
-                                    System.out.println("Enter 1 to basic attack enemy");
-                                    System.out.println("Enter 2 to use special ability");
-                                    System.out.println("Enter 3 to display inventory");
-                                    System.out.println("Enter 4 to display character information and stats");
-                                    int answer = sc.nextInt();                                    
-                    TimeUnit.SECONDS.sleep(1);
                     currentPlayers.get(i).setTarget(currentEnemies.get(temp));
-                    currentPlayers.get(i).attack();
+                    boolean menu = true;
+                    while (menu) {
+                        TimeUnit.SECONDS.sleep(1);
+                        System.out.println("******************************************************");
+                        System.out.println("Here are your player options");
+                        System.out.println("Enter 1 to basic attack enemy");
+                        System.out.println("Enter 2 to use special ability");
+                        System.out.println("Enter 3 to display inventory");
+                        System.out.println("Enter 4 to display character information and stats");
+                        System.out.println("******************************************************");
+                        int answer = sc.nextInt();
+                        switch (answer) {
+                            case 1:
+                                currentPlayers.get(i).attack();
+                                menu = false;
+                                break;
+                            case 2:
+                                System.out.println("Special Ability");
+                                menu = false;
+                                break;
+                            case 3:
+                                for (int j = 0; j < currentPlayers.get(i).getInventory().size(); j++) {
+                                    TimeUnit.SECONDS.sleep(1);
+                                    System.out.println(currentPlayers.get(i).getInventory().get(j).getType() + " "
+                                            + currentPlayers.get(i).getInventory().get(j).getName());
+                                }
+                                System.out.println("Enter 1 to see additional information about the items");
+                                System.out.println("Enter 2 to go back to menu");
+                                int caseThreeAnswer = sc.nextInt();
+                                if (caseThreeAnswer == 1) {
+                                    for (int j = 0; j < currentPlayers.get(i).getInventory().size(); j++) {
+                                        TimeUnit.SECONDS.sleep(1);
+                                        currentPlayers.get(i).getInventory().get(j).printItemInfo();
+                                    }
+                                }
+                                break;
+                            case 4:
+                                currentPlayers.get(i).characterPrintInfo();
+                                break;
+                        }
+                    }
+                    TimeUnit.SECONDS.sleep(1);
                     if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
                         currentPlayers.get(i).getTarget().setHealthPoint(0);
                     }
-                    TimeUnit.SECONDS.sleep(1);
                     System.out.println(
                             "Current health of the enemy is " + currentPlayers.get(i).getTarget().getHealthPoint());
                     TimeUnit.SECONDS.sleep(1);

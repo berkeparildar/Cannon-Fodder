@@ -22,6 +22,7 @@ public class Weapons extends Item {
         super.printItemInfo();
         System.out.println("Damage: " + damage);
         System.out.println("Weapon type: " + weaponType);
+        System.out.println("----------------------------");
     }
 
     @Override

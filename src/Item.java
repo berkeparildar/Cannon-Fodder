@@ -52,6 +52,7 @@ public class Item {
     }
 
     public void printItemInfo() {
+        System.out.println("----------------------------");
         System.out.println("Name: " + this.name + "\nType: " + this.type +
                 "\nValue: " + this.value
                 + "\nWeight: " + this.weight + "\nRarity: " + this.rarity + "\nLevel: " +
