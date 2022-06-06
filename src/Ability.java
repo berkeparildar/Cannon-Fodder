@@ -5,6 +5,8 @@ public class Ability {
     private Enemy target;
     private Character ally;
     private Character caster;
+    private boolean abilityReady = true;
+    private int endOfCooldown;
 
     public Ability(Character caster) {
         this.caster = caster;
@@ -14,6 +16,22 @@ public class Ability {
         this.name = getName();
         this.target = getTarget();
         this.ally = getAlly();
+    }
+
+    public void setAbilityReady(boolean abilityReady) {
+        this.abilityReady = abilityReady;
+    }
+
+    public int getEndOfCooldown() {
+        return endOfCooldown;
+    }
+
+    public void setEndOfCooldown(int endOfCooldown) {
+        this.endOfCooldown = endOfCooldown;
+    }
+
+    public boolean getabilityReady(){
+        return abilityReady;
     }
 
     public String getName() {
@@ -85,15 +103,20 @@ public class Ability {
     public void cast() {
         if (getCaster().getRole().equals("Knight")) {
         System.out.println("Casting " + getName() + " on " + getTarget().getName());
+        System.out.println(getTarget().getName() + " is stunned for 1 round");
         getTarget().setStunned(true);
+        this.abilityReady=false;
         }
         else if (getCaster().getRole().equals("Healer")) {
             System.out.println("Casting " + getName() + " on " + getTarget().getName());
             getAlly().setHP(getAlly().getMaxHP());
+            System.out.println("Current health of the ally " + ally.getName() + " is " + getAlly().getHP());
+            this.abilityReady = false;
         }
         else if (getCaster().getRole().equals("Warrior")) {
             System.out.println("Casting " + getName() + " on " + getTarget().getName());
             getTarget().setHealthPoint(getTarget().getHealthPoint()-30);
+            this.abilityReady = false;
         }
     }
 }

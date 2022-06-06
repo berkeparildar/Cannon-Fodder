@@ -45,9 +45,9 @@ public class Tank extends Character {
     @Override
     public void characterPrintInfo() {
         super.characterPrintInfo();
-        System.out.println("Intelligence: " + getIntelligence() + "\nStrength: " + getStrength() + "\nVitality: "
-                + getVitality() + "\nHP: " + getHP() + "\nWeapon: " + getWeapon().weaponType + " "
-                + getWeapon().getName() + "\nArmor: " + getArmor().getName());
+        System.out.println("Intelligence: " + getIntelligence() + "\t\tStrength:" + getStrength() + "\t\tVitality:"
+                + getVitality() + "\nHP: " + getHP() + "\t\t\tWeapon: " 
+                + getWeapon().getName() + "\tArmor: " + getArmor().getName());
                 System.out.println("=========================================================");
     }
 

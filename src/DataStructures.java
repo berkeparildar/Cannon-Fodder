@@ -23,6 +23,8 @@ public class DataStructures {
     Map<String, String> weaponDamage = new HashMap<>();
     Map<String, String> armorReductionDamage = new HashMap<>();
     Map<String, String> characterClass = new HashMap<>();
+    Map<String, String> potionAmount = new HashMap<>();
+
 
     public ArrayList<String> getItemID() {
         return itemID;
@@ -41,6 +43,7 @@ public class DataStructures {
         itemData.add(itemType);// 7e 5
         itemData.add(weaponDamage);// 8e 6
         itemData.add(armorReductionDamage);// 9e 7
+        itemData.add(potionAmount); // 10e 8
         return itemData;
     }
 
@@ -58,6 +61,7 @@ public class DataStructures {
             while ((line = fileBuffer1.readLine()) != null) {
                 String[] contents = line.split(",");
                 Boolean a = contents[1].equals("WEAPON");
+                Boolean b = contents[1].equals("POTION");
                 itemID.add(contents[6]);
                 itemData.get(0).put(contents[6], contents[0]);
                 itemData.get(1).put(contents[6], contents[2]);
@@ -67,7 +71,11 @@ public class DataStructures {
                 itemData.get(5).put(contents[6], contents[7]);
                 if (a) {
                     itemData.get(6).put(contents[0], contents[8]);
-                } else {
+                }
+                else if(b){
+                    itemData.get(8).put(contents[0], contents[10]);
+                }
+                 else {
                     itemData.get(7).put(contents[0], contents[9]);
                 }
             }

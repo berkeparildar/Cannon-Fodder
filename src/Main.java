@@ -3,23 +3,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.transform.Source;
+
 public class Main {
     static SecureRandom random = new SecureRandom();
     static ArrayList<Character> currentPlayers = new ArrayList<>();
     static ArrayList<Enemy> currentEnemies = new ArrayList<>();
+    static ArrayList<Item> droppedItems = new ArrayList<>();
     static int level = 1;
+    static int round = 1;
     static boolean game = true;
     static Scanner sc = new Scanner(System.in);
+    static DataStructures data = new DataStructures();
+
 
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        DataStructures data = new DataStructures();
         data.readCSV();
         initializeChars(data);
         while (game) {
             initializeEnemies();
             battle();
-            System.out.println("Enter 'continue' to go to next level");
+            System.out.println("Enter to go to next level");
             sc.next();
             level++;
         }
@@ -33,7 +38,6 @@ public class Main {
         currentPlayers.add(tank);
         currentPlayers.add(heal);
         currentPlayers.add(fighter);
-
     }
 
     static void initializeEnemies() {
@@ -83,23 +87,32 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("Special Ability");
-                                if(currentPlayers.get(i).getRole().equals("Healer")){
-                                    System.out.println("Please select an ally to heal");
-                                    for (int j = 0; j < currentPlayers.size(); j++) {
-                                        System.out.println("Enter " + j + " to heal " + currentPlayers.get(j).getName());
-                                    }
-                                    int caseTwoChoice = sc.nextInt();
-                                    if(caseTwoChoice==0){
-                                        currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(0));
-                                    }
-                                    else if(caseTwoChoice==1){
-                                        currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(1));
-                                    }
-                                    else if(caseTwoChoice==2){
-                                        currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(2));
-                                    }
+                                if (round == currentPlayers.get(i).getAbility().getEndOfCooldown()) {
+                                    currentPlayers.get(i).getAbility().setAbilityReady(true);
                                 }
-                                currentPlayers.get(i).getAbility().cast();
+                                if (currentPlayers.get(i).getAbility().getabilityReady()) {
+                                    if (currentPlayers.get(i).getRole().equals("Healer")) {
+                                        System.out.println("Please select an ally to heal");
+                                        for (int j = 0; j < currentPlayers.size(); j++) {
+                                            System.out
+                                                    .println("Enter " + j + " to heal "
+                                                            + currentPlayers.get(j).getName());
+                                        }
+                                        int caseTwoChoice = sc.nextInt();
+                                        if (caseTwoChoice == 0) {
+                                            currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(0));
+                                        } else if (caseTwoChoice == 1) {
+                                            currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(1));
+                                        } else if (caseTwoChoice == 2) {
+                                            currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(2));
+                                        }
+                                    }
+                                    currentPlayers.get(i).getAbility().cast();
+                                    currentPlayers.get(i).getAbility()
+                                            .setEndOfCooldown(round + currentPlayers.get(i).getAbility().getCooldown());
+                                } else {
+                                    System.out.println("Ability not ready yet");
+                                }
                                 menu = false;
                                 break;
                             case 3:
@@ -121,6 +134,13 @@ public class Main {
                             case 4:
                                 currentPlayers.get(i).characterPrintInfo();
                                 break;
+                                case 5: 
+                                int k = droppedItems.size();
+                                if(k>=1){
+                                    System.out.println("One of the enemies dropped" + droppedItems.get(0).getName());
+                                }else{
+                                    System.out.println("There is nothing to inspect at the moment");
+                                }
                         }
                     }
                     TimeUnit.SECONDS.sleep(1);
@@ -139,6 +159,8 @@ public class Main {
                     System.out.println(currentEnemies.get(temp).getName() + " is dead");
                     currentEnemies.remove(temp);
                     numberOfEnemies = currentEnemies.size();
+                    droppedItems.add(new Potion(data, ""));
+                    System.out.println("Enemy dropped" + droppedItems.get(droppedItems.size()-1).getName());
                     targeted = false;
                 }
 
@@ -149,7 +171,8 @@ public class Main {
                             enemyTemp = j;
                         }
                     }
-                    if(currentEnemies.get(i).getIsStunned()){
+                    if (currentEnemies.get(i).getIsStunned()) {
+                        System.out.println(currentEnemies.get(i).getName() + " is stunned.");
                         continue;
                     }
                     System.out.println("It is " + currentEnemies.get(i).getName() + "'s turn ");
@@ -176,17 +199,19 @@ public class Main {
                     numberOfPlayers = currentPlayers.size();
                     targeted = false;
                 }
+                round++;
 
             }
-
             if (numberOfEnemies == 0) {
                 fighting = false;
                 TimeUnit.SECONDS.sleep(1);
+                System.out.println();
                 System.out.println("All enemies are dead..");
                 System.out.println("LEVEL CLEARED");
             } else if (numberOfPlayers == 0) {
                 fighting = false;
                 TimeUnit.SECONDS.sleep(1);
+                System.out.println();
                 System.out.println("All players are dead...");
                 System.out.println("GAME OVER");
                 game = false;

@@ -149,10 +149,15 @@ public class Character {
 
     public void characterPrintInfo() {
         System.out.println("=========================================================");
-        System.out.println("Name: " + name + "\nClass: " + role + "\nMoney: " + money);
+        System.out.println("Name: " + name + "\t\tClass: " + role + "\t\tMoney: " + money);
     }
 
     public String getRole() {
         return role;
+    }
+    public void consumePotion(){
+        if(getName().contains("Health")){
+            
+        }
     }
 }
