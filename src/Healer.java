@@ -9,7 +9,7 @@ public class Healer extends Character {
         setVitality(calculateVitality());
         setHP(calculateHP());
         setWeapon(new Weapons(data, "H"));
-        setArmor(new Armor(data, "M"));
+        setArmor(new Armor(data, "H"));
         setDamage(calculateDamage());
         getInventory().add(getWeapon());
         getInventory().add(getArmor());

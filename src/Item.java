@@ -21,8 +21,11 @@ public class Item {
         idSetter(data,key);
         if (randomID.contains("W")) {
             this.type = "WEAPON";
-        } else {
+        } else if (randomID.contains("T")){
             this.type = "ARMOR";
+        }
+        else{
+            this.type = "POTION";
         }
         this.name = data.getItemData().get(0).get(randomID);
         this.value = Integer.parseInt(data.getItemData().get(1).get(randomID));

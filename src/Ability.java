@@ -16,6 +16,7 @@ public class Ability {
         this.name = getName();
         this.target = getTarget();
         this.ally = getAlly();
+        this.endOfCooldown = getCooldown();
     }
 
     public void setAbilityReady(boolean abilityReady) {

@@ -25,9 +25,9 @@ public class Potion extends Item {
         }
         else if(getName().contains("Intelligence")){
             int current = c.getIntelligence();
-            if(getName().contains("Enhanced")){
+            // if(getName().contains("Enhanced")){
                  c.setIntelligence(current + amount);
-            }
+            // }
         }
         else if(getName().contains("Strength")){
             int current = c.getStrength();

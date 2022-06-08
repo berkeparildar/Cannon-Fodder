@@ -14,6 +14,7 @@ public class Main {
     static boolean game = true;
     static Scanner sc = new Scanner(System.in);
     static DataStructures data = new DataStructures();
+    static Game run = new Game();
 
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
@@ -130,8 +131,11 @@ public class Main {
                                             + currentPlayers.get(i).getInventory().get(j).getName());
                                 }
                                 System.out.println("Choose an item to choose actions");
-                                System.out.println("Enter 2 to go back to menu");
+                                System.out.println("Enter 9 to go back to menu");
                                 int caseThreeAnswer = sc.nextInt();
+                                if(caseThreeAnswer==9){
+                                    break;
+                                }
                                 currentPlayers.get(i).getInventory().get(caseThreeAnswer).printItemInfo();
                                 if(currentPlayers.get(i).getWeapon()==currentPlayers.get(i).getInventory().get(caseThreeAnswer)|| currentPlayers.get(i).getArmor()==currentPlayers.get(i).getInventory().get(caseThreeAnswer)){
                                     System.out.println("This Item is equipped");
@@ -143,7 +147,18 @@ public class Main {
                                     if(thirdAnswerTwo==1){
                                         Item a = currentPlayers.get(i).getInventory().get(caseThreeAnswer);
                                         if(currentPlayers.get(i).getInventory().get(caseThreeAnswer).getType().equals("WEAPON")){
-                                            // currentPlayers.get(i).setWeapon(a);
+                                            Weapons weap = (Weapons) a;
+                                            if(weap.getType().equals("Wand")){
+                                                currentPlayers.get(i).setWeapon(weap);
+                                            }else{
+                                                System.out.println("You can not equip this type of weapon");
+                                            }
+                                        }
+                                        else if(currentPlayers.get(i).getInventory().get(caseThreeAnswer).getType().equals("ARMOR")){
+                                        }
+                                        else{
+                                            Potion potion = (Potion) a;
+                                            potion.consumePotion(currentPlayers.get(i), round);
                                         }
                                     }
                                 }
@@ -180,13 +195,7 @@ public class Main {
                             System.out.println(currentEnemies.get(temp).getName() + " is dead");
                             currentEnemies.remove(temp);
                             numberOfEnemies = currentEnemies.size();
-                            boolean val = new Random().nextInt(3) == 0;
-                            if (val) {
-                                droppedItems.add(new Potion(data, ""));
-                                System.out
-                                        .println("Enemy dropped " + droppedItems.get(droppedItems.size() - 1).getName());
-                                        System.out.println("Select inspect to pick up the item");
-                            }
+                            run.itemDrops(droppedItems, data);
                         }
                     }
                 }
