@@ -1,9 +1,8 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.transform.Source;
 
 public class Main {
     static SecureRandom random = new SecureRandom();
@@ -15,7 +14,6 @@ public class Main {
     static boolean game = true;
     static Scanner sc = new Scanner(System.in);
     static DataStructures data = new DataStructures();
-
 
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
@@ -64,7 +62,14 @@ public class Main {
                 temp = random.nextInt(0, numberOfEnemies - 1);
             }
             while (targeted) {
+                System.out.println();
+                System.out.println("Round " + round);
+                System.out.println();
                 for (int i = 0; i < currentPlayers.size(); i++) {
+                    if(currentEnemies.size()==0){
+                        targeted = false;
+                        break;
+                    }
                     System.out.println(
                             "It is " + currentPlayers.get(i).getRole() + " " + currentPlayers.get(i).getName()
                                     + "'s turn.");
@@ -78,6 +83,7 @@ public class Main {
                         System.out.println("Enter 2 to use special ability");
                         System.out.println("Enter 3 to display inventory");
                         System.out.println("Enter 4 to display character information and stats");
+                        System.out.println("Enter 5 to inspect");
                         System.out.println("******************************************************");
                         int answer = sc.nextInt();
                         switch (answer) {
@@ -110,20 +116,37 @@ public class Main {
                                     currentPlayers.get(i).getAbility().cast();
                                     currentPlayers.get(i).getAbility()
                                             .setEndOfCooldown(round + currentPlayers.get(i).getAbility().getCooldown());
+                                    menu = false;
+                                    System.out.println("Ability will be ready on round "
+                                            + currentPlayers.get(i).getAbility().getEndOfCooldown());
                                 } else {
                                     System.out.println("Ability not ready yet");
                                 }
-                                menu = false;
                                 break;
                             case 3:
                                 for (int j = 0; j < currentPlayers.get(i).getInventory().size(); j++) {
                                     TimeUnit.SECONDS.sleep(1);
-                                    System.out.println(currentPlayers.get(i).getInventory().get(j).getType() + " "
+                                    System.out.println(j + ")" + currentPlayers.get(i).getInventory().get(j).getType() + " "
                                             + currentPlayers.get(i).getInventory().get(j).getName());
                                 }
-                                System.out.println("Enter 1 to see additional information about the items");
+                                System.out.println("Choose an item to choose actions");
                                 System.out.println("Enter 2 to go back to menu");
                                 int caseThreeAnswer = sc.nextInt();
+                                currentPlayers.get(i).getInventory().get(caseThreeAnswer).printItemInfo();
+                                if(currentPlayers.get(i).getWeapon()==currentPlayers.get(i).getInventory().get(caseThreeAnswer)|| currentPlayers.get(i).getArmor()==currentPlayers.get(i).getInventory().get(caseThreeAnswer)){
+                                    System.out.println("This Item is equipped");
+                                }
+                                else{
+                                    System.out.println("Enter 1 to equip this item");
+                                    System.out.println("Enter 2 to go back to menu");
+                                    int thirdAnswerTwo = sc.nextInt();
+                                    if(thirdAnswerTwo==1){
+                                        Item a = currentPlayers.get(i).getInventory().get(caseThreeAnswer);
+                                        if(currentPlayers.get(i).getInventory().get(caseThreeAnswer).getType().equals("WEAPON")){
+                                            // currentPlayers.get(i).setWeapon(a);
+                                        }
+                                    }
+                                }
                                 if (caseThreeAnswer == 1) {
                                     for (int j = 0; j < currentPlayers.get(i).getInventory().size(); j++) {
                                         TimeUnit.SECONDS.sleep(1);
@@ -134,36 +157,39 @@ public class Main {
                             case 4:
                                 currentPlayers.get(i).characterPrintInfo();
                                 break;
-                                case 5: 
+                            case 5:
                                 int k = droppedItems.size();
-                                if(k>=1){
-                                    System.out.println("One of the enemies dropped" + droppedItems.get(0).getName());
-                                }else{
+                                if (k >= 1) {
+                                    System.out.println("One of the enemies dropped " + droppedItems.get(0).getName());
+                                    currentPlayers.get(i).getInventory().add(droppedItems.get(0));
+                                    System.out.println(droppedItems.get(0).getName() + " is added to your inventory");
+                                    droppedItems.remove(0);
+                                } else {
                                     System.out.println("There is nothing to inspect at the moment");
                                 }
+                                break;
+                        }
+                        TimeUnit.SECONDS.sleep(1);
+                        if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
+                            currentPlayers.get(i).getTarget().setHealthPoint(0);
+                        }
+                        System.out.println(
+                                "Current health of the enemy is " + currentPlayers.get(i).getTarget().getHealthPoint());
+                        TimeUnit.SECONDS.sleep(1);
+                        if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
+                            System.out.println(currentEnemies.get(temp).getName() + " is dead");
+                            currentEnemies.remove(temp);
+                            numberOfEnemies = currentEnemies.size();
+                            boolean val = new Random().nextInt(3) == 0;
+                            if (val) {
+                                droppedItems.add(new Potion(data, ""));
+                                System.out
+                                        .println("Enemy dropped " + droppedItems.get(droppedItems.size() - 1).getName());
+                                        System.out.println("Select inspect to pick up the item");
+                            }
                         }
                     }
-                    TimeUnit.SECONDS.sleep(1);
-                    if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
-                        currentPlayers.get(i).getTarget().setHealthPoint(0);
-                    }
-                    System.out.println(
-                            "Current health of the enemy is " + currentPlayers.get(i).getTarget().getHealthPoint());
-                    TimeUnit.SECONDS.sleep(1);
-                    if (currentPlayers.get(i).getTarget().getHealthPoint() <= 0) {
-                        break;
-                    }
                 }
-
-                if (currentEnemies.get(temp).getHealthPoint() <= 0) {
-                    System.out.println(currentEnemies.get(temp).getName() + " is dead");
-                    currentEnemies.remove(temp);
-                    numberOfEnemies = currentEnemies.size();
-                    droppedItems.add(new Potion(data, ""));
-                    System.out.println("Enemy dropped" + droppedItems.get(droppedItems.size()-1).getName());
-                    targeted = false;
-                }
-
                 for (int i = 0; i < currentEnemies.size(); i++) {
                     int enemyIndex = 0;
                     for (int j = 0; j < currentPlayers.size(); j++) {
