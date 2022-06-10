@@ -19,7 +19,7 @@ public class Enemy {
     private String nameSetter() {
         SecureRandom random = new SecureRandom();
         List<String> adjectives = Arrays.asList("Small", "Crazy", "Warrior", "Enraged", "Big", "Scary");
-        return adjectives.get(random.nextInt(0, 5)) + " Goblin";
+        return adjectives.get(random.nextInt(5)) + " Goblin";
     }
 
     public void setTarget(Character target) {

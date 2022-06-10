@@ -55,7 +55,7 @@ public class DataStructures {
     public void readCSV() {
         try {
             getItemData();
-            fileBuffer1 = new BufferedReader(new FileReader("data\\Items.csv"));
+            fileBuffer1 = new BufferedReader(new FileReader("data//Items.csv"));
             fileBuffer1.readLine();
             String line = "";
             while ((line = fileBuffer1.readLine()) != null) {
@@ -80,7 +80,7 @@ public class DataStructures {
                 }
             }
             getCharacterData();
-            fileBuffer2 = new BufferedReader(new FileReader("data\\Characters.csv"));
+            fileBuffer2 = new BufferedReader(new FileReader("data//Characters.csv"));
             fileBuffer2.readLine();
             String line2 = "";
             while((line2 = fileBuffer2.readLine())!=null){

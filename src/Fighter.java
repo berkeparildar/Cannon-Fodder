@@ -29,17 +29,17 @@ public class Fighter extends Character {
 
     @Override
     public int calculateIntelligence() {
-        return random.nextInt(1, 3);
+        return random.nextInt(3-1) + 1;
     }
 
     @Override
     public int calculateVitality() {
-        return random.nextInt(1, 5);
+        return random.nextInt(5-1) + 1;
     }
 
     @Override
     public int calculateStrength() {
-        return random.nextInt(6, 10);
+        return random.nextInt(10 - 6) + 6;
     }
 
     @Override

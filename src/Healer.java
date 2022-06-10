@@ -24,22 +24,22 @@ public class Healer extends Character {
                 healName.add(characterNameArray.get(i));
             }
         }
-        return healName.get(random.nextInt(0, healName.size() - 1));
+        return healName.get(random.nextInt(healName.size() - 1) - 0);
     }
 
     @Override
     public int calculateIntelligence() {
-        return random.nextInt(6, 10);
+        return random.nextInt(10-6) + 6;
     }
 
     @Override
     public int calculateVitality() {
-        return random.nextInt(1, 5);
+        return random.nextInt(5-1) + 1;
     }
 
     @Override
     public int calculateStrength() {
-        return random.nextInt(3, 7);
+        return random.nextInt(7-3) + 3;
     }
 
     @Override

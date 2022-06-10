@@ -60,7 +60,7 @@ public class Main {
             if (numberOfEnemies == 1) {
                 temp = 0;
             } else {
-                temp = random.nextInt(0, numberOfEnemies - 1);
+                temp = random.nextInt(numberOfEnemies - 1);
             }
             while (targeted) {
                 System.out.println();
@@ -93,81 +93,11 @@ public class Main {
                                 menu = false;
                                 break;
                             case 2:
-                                System.out.println("Special Ability");
-                                if (round == currentPlayers.get(i).getAbility().getEndOfCooldown()) {
-                                    currentPlayers.get(i).getAbility().setAbilityReady(true);
-                                }
-                                if (currentPlayers.get(i).getAbility().getabilityReady()) {
-                                    if (currentPlayers.get(i).getRole().equals("Healer")) {
-                                        System.out.println("Please select an ally to heal");
-                                        for (int j = 0; j < currentPlayers.size(); j++) {
-                                            System.out
-                                                    .println("Enter " + j + " to heal "
-                                                            + currentPlayers.get(j).getName());
-                                        }
-                                        int caseTwoChoice = sc.nextInt();
-                                        if (caseTwoChoice == 0) {
-                                            currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(0));
-                                        } else if (caseTwoChoice == 1) {
-                                            currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(1));
-                                        } else if (caseTwoChoice == 2) {
-                                            currentPlayers.get(i).getAbility().setAlly(currentPlayers.get(2));
-                                        }
-                                    }
-                                    currentPlayers.get(i).getAbility().cast();
-                                    currentPlayers.get(i).getAbility()
-                                            .setEndOfCooldown(round + currentPlayers.get(i).getAbility().getCooldown());
-                                    menu = false;
-                                    System.out.println("Ability will be ready on round "
-                                            + currentPlayers.get(i).getAbility().getEndOfCooldown());
-                                } else {
-                                    System.out.println("Ability not ready yet");
-                                }
+                                run.ability(round,currentPlayers,i);
+                                menu = false;
                                 break;
                             case 3:
-                                for (int j = 0; j < currentPlayers.get(i).getInventory().size(); j++) {
-                                    TimeUnit.SECONDS.sleep(1);
-                                    System.out.println(j + ")" + currentPlayers.get(i).getInventory().get(j).getType() + " "
-                                            + currentPlayers.get(i).getInventory().get(j).getName());
-                                }
-                                System.out.println("Choose an item to choose actions");
-                                System.out.println("Enter 9 to go back to menu");
-                                int caseThreeAnswer = sc.nextInt();
-                                if(caseThreeAnswer==9){
-                                    break;
-                                }
-                                currentPlayers.get(i).getInventory().get(caseThreeAnswer).printItemInfo();
-                                if(currentPlayers.get(i).getWeapon()==currentPlayers.get(i).getInventory().get(caseThreeAnswer)|| currentPlayers.get(i).getArmor()==currentPlayers.get(i).getInventory().get(caseThreeAnswer)){
-                                    System.out.println("This Item is equipped");
-                                }
-                                else{
-                                    System.out.println("Enter 1 to equip this item");
-                                    System.out.println("Enter 2 to go back to menu");
-                                    int thirdAnswerTwo = sc.nextInt();
-                                    if(thirdAnswerTwo==1){
-                                        Item a = currentPlayers.get(i).getInventory().get(caseThreeAnswer);
-                                        if(currentPlayers.get(i).getInventory().get(caseThreeAnswer).getType().equals("WEAPON")){
-                                            Weapons weap = (Weapons) a;
-                                            if(weap.getType().equals("Wand")){
-                                                currentPlayers.get(i).setWeapon(weap);
-                                            }else{
-                                                System.out.println("You can not equip this type of weapon");
-                                            }
-                                        }
-                                        else if(currentPlayers.get(i).getInventory().get(caseThreeAnswer).getType().equals("ARMOR")){
-                                        }
-                                        else{
-                                            Potion potion = (Potion) a;
-                                            potion.consumePotion(currentPlayers.get(i), round);
-                                        }
-                                    }
-                                }
-                                if (caseThreeAnswer == 1) {
-                                    for (int j = 0; j < currentPlayers.get(i).getInventory().size(); j++) {
-                                        TimeUnit.SECONDS.sleep(1);
-                                        currentPlayers.get(i).getInventory().get(j).printItemInfo();
-                                    }
-                                }
+                                run.Inventory(currentPlayers,i);
                                 break;
                             case 4:
                                 currentPlayers.get(i).characterPrintInfo();

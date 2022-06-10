@@ -1,8 +1,9 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Character {
-    SecureRandom random = new SecureRandom();
+    Random random = new SecureRandom();
     private String name;
     private String role;
     private int HP;
@@ -77,7 +78,7 @@ public class Character {
     }
 
     public int calculateIntelligence() {
-        return random.nextInt(1, 5);
+        return random.nextInt(5 - 0);
     }
 
     public void setIntelligence(int intelligence) {
@@ -89,7 +90,7 @@ public class Character {
     }
 
     public int calculateVitality() {
-        return random.nextInt(1, 5);
+        return random.nextInt(5 - 1) + 1;
     }
 
     public void setVitality(int vitality) {
@@ -101,7 +102,7 @@ public class Character {
     }
 
     public int setMoney() {
-        return random.nextInt(10, 50);
+        return random.nextInt(50 - 10) + 10;
     }
 
     public int getHP() {
